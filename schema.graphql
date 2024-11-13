@@ -1,0 +1,12 @@
+type CaffeineSource {
+  drink: String
+  volume: Float
+  calories: Int
+  caffeine: Float
+  type: String
+}
+
+type Query {
+  searchCaffeineSource(type: String, drink: String): [CaffeineSource]
+}
+

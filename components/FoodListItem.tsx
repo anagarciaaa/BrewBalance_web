@@ -6,9 +6,9 @@ const FoodListItem = ({ item }) =>{
     return(
         <View style ={styles.container}>
             <View style ={{flex:1, gap: 5}}>
-            <Text style={{fontWeight: 'bold', fontSize: 16}}>{item.label}</Text>
+            <Text style={{fontWeight: 'bold', fontSize: 16}}>{item.drink}</Text>
             <Text style={{color: 'dimgray'}}> 
-                {item.cal} cal, {item.brand}
+                {item.volume} ml, {item.caffeine} mg caffeine, {item.type}
             </Text>
         </View>
         <AntDesign name="pluscircleo" size={24} color="royalblue" />

@@ -1,0 +1,5 @@
+subgraphs:
+  caffeineData:
+    routing_url: http://localhost:4000/ # URL where your subgraph is running
+    schema:
+      file: ./schema.graphql # Path to your subgraph schema file
