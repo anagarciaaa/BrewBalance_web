@@ -5,16 +5,19 @@ import {
   ApolloProvider, 
   gql, 
 } from '@apollo/client';
+import { UserProvider } from '@/components/UserContext'; 
 const client = new ApolloClient({
-  uri: 'http://10.188.104.235:4000/',
+  uri: 'https://192.168.56.1:4000/graphql',
   cache: new InMemoryCache(),
 });
 
-const RootLayout = () =>{
-  return(
-    <ApolloProvider client = {client}>
-      <Stack />
+const RootLayout = () => {
+  return (
+    <ApolloProvider client={client}>
+      <UserProvider>
+        <Stack />
+      </UserProvider>
     </ApolloProvider>
-  )
-}
+  );
+};
 export default RootLayout;
