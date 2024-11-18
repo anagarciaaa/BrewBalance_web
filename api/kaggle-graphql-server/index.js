@@ -30,24 +30,19 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     // Query to search caffeine data by drink name
-    searchCaffeineSource: (_, { drink, type }) => {
-      let results = caffeineData;
-
-      // Filter by drink name if provided
-      if (drink) {
-        results = results.filter((entry) =>
-          entry.drink.toLowerCase().includes(drink.toLowerCase())
-        );
+    searchCaffeineSource: (_, { search }) => {
+      if (caffeineData.length === 0) {
+        throw new Error('Caffeine data is not loaded. Please load the data first.');
       }
+      if(!search) return caffeineData;
+      const lowercasedSearch = search.toLowerCase();
 
-      // Filter by type if provided
-      if (type) {
-        results = results.filter((entry) =>
-          entry.type.toLowerCase() === type.toLowerCase()
-        );
-      }
-
-      return results;
+      // Filter by matching drink or type
+      return caffeineData.filter(
+        (entry) =>
+          entry.drink.toLowerCase().includes(lowercasedSearch) ||
+          entry.type.toLowerCase().includes(lowercasedSearch)
+      );
     },
 
     // Load the caffeine data from the CSV file
@@ -93,11 +88,15 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   cors: {
-    origin: 'http://10.188.104.235:8081', // Allow requests from your frontend
+    origin: '*', // Allow requests from your frontend
     credentials: true, // Allow cookies if needed
   },
 });
 
-server.listen().then(({ url }) => {
-  console.log(`🚀 Server ready at ${url}`);
-});
+(async () => {
+  await resolvers.Query.loadCaffeineData();
+  server.listen().then(({ url }) => {
+    console.log(`🚀 Server ready at ${url}`);
+  });
+})();
+

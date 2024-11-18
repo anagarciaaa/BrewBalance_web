@@ -7,6 +7,6 @@ type CaffeineSource {
 }
 
 type Query {
-  searchCaffeineSource(type: String, drink: String): [CaffeineSource]
+  searchCaffeineSource(search: String): [CaffeineSource]
 }
 

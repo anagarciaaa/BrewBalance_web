@@ -4,8 +4,8 @@ import FoodListItem from "@/components/FoodListItem";
 import { useState } from "react";
 import{gql, useLazyQuery} from "@apollo/client";
 const query = gql`
-    query($drink: String, $type: String){
-      searchCaffeineSource(drink: $drink, type: $type) {
+    query($search: String){
+      searchCaffeineSource(search: $search) {
         caffeine
         drink
         volume
@@ -22,12 +22,15 @@ const foodItems =[
 ]
 export default function SearchScreen() {
   const[search, setSearch] = useState('');
-
+/*
   const [runSearch, {data, loading, error}]= useLazyQuery(query, 
     {variables: {search},
   });
+  */
+  const [runSearch, { data, loading, error }] = useLazyQuery(query);
+
   const performSearch=()=>{
-    runSearch({variables: {type: search}});
+    runSearch({variables: {search}});
     setSearch('');
   }
   /*
